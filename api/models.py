@@ -69,28 +69,23 @@ class Service(Model):
 		verbose_name_plural = 'Услуги'
 
 
+class Speciality(Model):
+	name = CharField(verbose_name='Специальность', max_length=255)
+
+	class Meta:
+		verbose_name = 'Специальность'
+		verbose_name_plural = 'Специальности'
+
+
 class Doctor(Model):
 	fio = CharField(max_length=150, verbose_name='ФИО')
 	experience = PositiveIntegerField(verbose_name='Стаж (в годах)')
-	
-
-class DoctorKeys(Model):
-	# photo/file = ?
-	description = TextField(verbose_name='Описание')
-	doctor = ForeignKey(Doctor, on_delete=CASCADE, verbose_name='Врач')
+	speciality = ForeignKey(Speciality, on_delete=SET_NULL, null=True, verbose_name='Специальность')
+	description = TextField(verbose_name='Краткое описание')
 
 	class Meta:
-		verbose_name = 'Кейс специалиста'
-		verbose_name_plural = 'Кейсы специалистов'
-
-
-class DoctorCertificate(Model):
-	file = FileField(upload_to='doctors_certificates')
-	doctor = ForeignKey(Doctor, on_delete=CASCADE, verbose_name='Врач')
-
-	class Meta:
-		verbose_name = 'Сертификат специалиста'
-		verbose_name_plural = 'Сертификаты специалистов'
+		verbose_name = 'Врач'
+		verbose_name_plural = 'Врачи'
 
 
 class DoctorEducationRow(Model):
@@ -109,3 +104,34 @@ class DoctorExperienceRow(Model):
 	class Meta:
 		verbose_name = 'Запись об образовании специалиста'
 		verbose_name_plural = 'Записи об образовании специалистов'
+
+
+class DoctorCertificate(Model):
+	file = FileField(upload_to='doctors_certificates')
+	doctor = ForeignKey(Doctor, on_delete=CASCADE, verbose_name='Врач')
+
+	class Meta:
+		verbose_name = 'Сертификат специалиста'
+		verbose_name_plural = 'Сертификаты специалистов'
+
+
+class DoctorKeys(Model):
+	photo = ImageField(upload_to='keys_photos', verbose_name='Изображение')
+	description = TextField(verbose_name='Описание')
+	doctor = ForeignKey(Doctor, on_delete=CASCADE, verbose_name='Врач')
+
+	class Meta:
+		verbose_name = 'Кейс специалиста'
+		verbose_name_plural = 'Кейсы специалистов'
+
+
+class Order(Model):
+	fio = CharField(max_length=255, verbose_name='ФИО')
+	email = EmailField(verbose_name='email')
+	phone = CharField(max_length=20, verbose_name='phone')
+	date = DateField(verbose_name='Предварительная дата')
+	question = CharField(max_length=2048, verbose_name='Текст обращения')
+
+	class Meta:
+		verbose_name = 'Заявка на приём'
+		verbose_name_plural = 'Заявки на приём'
