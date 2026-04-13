@@ -64,6 +64,7 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
+AUTH_USER_MODEL = 'api.User'
 LANGUAGE_CODE = 'ru'
 TIME_ZONE = 'Asia/Vladivostok'
 USE_I18N = True

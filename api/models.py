@@ -62,7 +62,7 @@ class Service(Model):
 	description = TextField(verbose_name='Описание')
 	price = DecimalField(max_digits=10, decimal_places=2, verbose_name='Стоимость')
 	image = ImageField(upload_to='service_images', verbose_name='Изображение')
-	type_of_service = ForeignKey(TypeOfService, on_delete=SET_NULL, verbose_name='Вид услуг')
+	type_of_service = ForeignKey(TypeOfService, on_delete=SET_NULL, verbose_name='Вид услуг', null=True)
 
 	class Meta:
 		verbose_name = 'Услуга'
@@ -82,6 +82,7 @@ class Doctor(Model):
 	experience = PositiveIntegerField(verbose_name='Стаж (в годах)')
 	speciality = ForeignKey(Speciality, on_delete=SET_NULL, null=True, verbose_name='Специальность')
 	description = TextField(verbose_name='Краткое описание')
+	photo = ImageField(upload_to='doctors_images', null=True, default=None, verbose_name='Фото')
 
 	class Meta:
 		verbose_name = 'Врач'
