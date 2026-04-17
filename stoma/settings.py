@@ -71,6 +71,10 @@ USE_I18N = True
 USE_TZ = True
 APPEND_SLASH = False
 
+CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_CREDENTIALS = True
+CORS_ALLOWED_ORIGINS = ['*']
+
 mimetypes.add_type("application/javascript", ".js", True)
 mimetypes.add_type("application/javascript", ".mjs", True)
 mimetypes.add_type("text/css", ".css", True)

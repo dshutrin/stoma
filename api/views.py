@@ -181,7 +181,7 @@ def logout_view(request):
 # =========================
 # Document
 # =========================
-
+@csrf_exempt
 def get_all_documents(request):
     if request.method != 'GET':
         return method_not_allowed()
@@ -191,7 +191,7 @@ def get_all_documents(request):
 
     return JsonResponse({'documents': documents_list}, status=200)
 
-
+@csrf_exempt
 def get_document_detail(request, document_id):
     if request.method != 'GET':
         return method_not_allowed()
@@ -288,7 +288,7 @@ def delete_document(request, document_id):
 # =========================
 # Speciality
 # =========================
-
+@csrf_exempt
 def get_all_specialities(request):
     if request.method != 'GET':
         return method_not_allowed()
@@ -298,7 +298,7 @@ def get_all_specialities(request):
 
     return JsonResponse({'specialities': specialities_list}, status=200)
 
-
+@csrf_exempt
 def get_speciality_detail(request, speciality_id):
     if request.method != 'GET':
         return method_not_allowed()
@@ -372,7 +372,7 @@ def delete_speciality(request, speciality_id):
 # =========================
 # TypeOfService
 # =========================
-
+@csrf_exempt
 def get_all_type_of_service(request):
     if request.method != 'GET':
         return method_not_allowed()
@@ -382,7 +382,7 @@ def get_all_type_of_service(request):
 
     return JsonResponse({'types': types_list}, status=200)
 
-
+@csrf_exempt
 def get_type_of_service_detail(request, type_id):
     if request.method != 'GET':
         return method_not_allowed()
@@ -456,7 +456,7 @@ def delete_type_of_service(request, type_id):
 # =========================
 # Service
 # =========================
-
+@csrf_exempt
 def get_all_services(request):
     if request.method != 'GET':
         return method_not_allowed()
@@ -466,7 +466,7 @@ def get_all_services(request):
 
     return JsonResponse({'services': services_list}, status=200)
 
-
+@csrf_exempt
 def get_service_detail(request, service_id):
     if request.method != 'GET':
         return method_not_allowed()
@@ -478,7 +478,7 @@ def get_service_detail(request, service_id):
 
     return JsonResponse({'service': serialize_service(service)}, status=200)
 
-
+@csrf_exempt
 def get_services_with_type_of_service(request, type_of_service_id):
     if request.method != 'GET':
         return method_not_allowed()
@@ -606,7 +606,7 @@ def delete_service(request, service_id):
 # =========================
 # Doctor
 # =========================
-
+@csrf_exempt
 def get_all_doctors(request):
     if request.method != 'GET':
         return method_not_allowed()
@@ -616,7 +616,7 @@ def get_all_doctors(request):
 
     return JsonResponse({'doctors': doctors_list}, status=200)
 
-
+@csrf_exempt
 def get_doctor_detail(request, doctor_id):
     if request.method != 'GET':
         return method_not_allowed()
@@ -641,7 +641,7 @@ def get_doctor_detail(request, doctor_id):
         }
     }, status=200)
 
-
+@csrf_exempt
 def get_doctors_with_specific(request, spec_id):
     if request.method != 'GET':
         return method_not_allowed()
@@ -764,7 +764,7 @@ def delete_doctor(request, doctor_id):
 # =========================
 # DoctorEducationRow
 # =========================
-
+@csrf_exempt
 def get_doctor_education_rows(request, doctor_id):
     if request.method != 'GET':
         return method_not_allowed()
@@ -774,7 +774,7 @@ def get_doctor_education_rows(request, doctor_id):
 
     return JsonResponse({'education_rows': rows_list}, status=200)
 
-
+@csrf_exempt
 def get_doctor_education_row_detail(request, row_id):
     if request.method != 'GET':
         return method_not_allowed()
@@ -863,7 +863,7 @@ def delete_doctor_education_row(request, row_id):
 # =========================
 # DoctorExperienceRow
 # =========================
-
+@csrf_exempt
 def get_doctor_experience_rows(request, doctor_id):
     if request.method != 'GET':
         return method_not_allowed()
@@ -873,7 +873,7 @@ def get_doctor_experience_rows(request, doctor_id):
 
     return JsonResponse({'experience_rows': rows_list}, status=200)
 
-
+@csrf_exempt
 def get_doctor_experience_row_detail(request, row_id):
     if request.method != 'GET':
         return method_not_allowed()
@@ -962,7 +962,7 @@ def delete_doctor_experience_row(request, row_id):
 # =========================
 # DoctorCertificate
 # =========================
-
+@csrf_exempt
 def get_doctor_certificates(request, doctor_id):
     if request.method != 'GET':
         return method_not_allowed()
@@ -972,7 +972,7 @@ def get_doctor_certificates(request, doctor_id):
 
     return JsonResponse({'certificates': certificates_list}, status=200)
 
-
+@csrf_exempt
 def get_doctor_certificate_detail(request, certificate_id):
     if request.method != 'GET':
         return method_not_allowed()
@@ -1069,7 +1069,7 @@ def delete_doctor_certificate(request, certificate_id):
 # =========================
 # DoctorKeys
 # =========================
-
+@csrf_exempt
 def get_doctor_keys(request, doctor_id):
     if request.method != 'GET':
         return method_not_allowed()
@@ -1079,7 +1079,7 @@ def get_doctor_keys(request, doctor_id):
 
     return JsonResponse({'keys': keys_list}, status=200)
 
-
+@csrf_exempt
 def get_doctor_key_detail(request, key_id):
     if request.method != 'GET':
         return method_not_allowed()
@@ -1187,7 +1187,7 @@ def delete_doctor_key(request, key_id):
 # =========================
 # Order
 # =========================
-
+@csrf_exempt
 def get_all_orders(request):
     if request.method != 'GET':
         return method_not_allowed()
@@ -1197,7 +1197,7 @@ def get_all_orders(request):
 
     return JsonResponse({'orders': orders_list}, status=200)
 
-
+@csrf_exempt
 def get_order_detail(request, order_id):
     if request.method != 'GET':
         return method_not_allowed()
