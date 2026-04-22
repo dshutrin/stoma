@@ -1,76 +1,18 @@
 from django.urls import path
 
-from .views import (
-    login_view,
-    logout_view,
-
-    get_all_documents,
-    get_document_detail,
-    create_document,
-    update_document,
-    delete_document,
-
-    get_all_specialities,
-    get_speciality_detail,
-    create_speciality,
-    update_speciality,
-    delete_speciality,
-
-    get_all_type_of_service,
-    get_type_of_service_detail,
-    create_type_of_service,
-    update_type_of_service,
-    delete_type_of_service,
-
-    get_all_services,
-    get_service_detail,
-    get_services_with_type_of_service,
-    create_service,
-    update_service,
-    delete_service,
-
-    get_all_doctors,
-    get_doctor_detail,
-    get_doctors_with_specific,
-    create_doctor,
-    update_doctor,
-    delete_doctor,
-
-    get_doctor_education_rows,
-    get_doctor_education_row_detail,
-    create_doctor_education_row,
-    update_doctor_education_row,
-    delete_doctor_education_row,
-
-    get_doctor_experience_rows,
-    get_doctor_experience_row_detail,
-    create_doctor_experience_row,
-    update_doctor_experience_row,
-    delete_doctor_experience_row,
-
-    get_doctor_certificates,
-    get_doctor_certificate_detail,
-    create_doctor_certificate,
-    update_doctor_certificate,
-    delete_doctor_certificate,
-
-    get_doctor_keys,
-    get_doctor_key_detail,
-    create_doctor_key,
-    update_doctor_key,
-    delete_doctor_key,
-
-    get_all_orders,
-    get_order_detail,
-    create_order,
-    update_order,
-    delete_order,
-)
+from .views import *
 
 
 urlpatterns = [
     path('login/', login_view),
     path('logout/', logout_view),
+
+    path('api/users/', users_list, name='users_list'),                 # GET
+    path('api/users/<int:user_id>/', user_detail, name='user_detail'), # GET
+    path('api/users/create/', create_user, name='create_user'),        # POST
+    path('api/users/<int:user_id>/update/', update_user, name='update_user'),  # POST / PUT
+    path('api/users/<int:user_id>/delete/', delete_user, name='delete_user'),  # POST / DELETE
+
 
     # documents
     path('documents/', get_all_documents),

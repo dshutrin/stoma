@@ -4,6 +4,7 @@ import datetime
 from django.contrib.auth import authenticate, login as user_login, logout as user_logout
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.http import require_http_methods
 
 from .models import (
     Document,
@@ -15,7 +16,7 @@ from .models import (
     DoctorExperienceRow,
     DoctorCertificate,
     DoctorKeys,
-    Order,
+    Order, User,
 )
 
 
@@ -1301,3 +1302,140 @@ def delete_order(request, order_id):
     order.delete()
 
     return JsonResponse({'message': 'order deleted successfully'}, status=200)
+
+
+def json_error(message, status=400):
+    return JsonResponse({
+        'ok': False,
+        'error': message
+    }, status=status)
+
+
+def json_success(data=None, status=200):
+    return JsonResponse({
+        'ok': True,
+        'data': data
+    }, status=status)
+
+
+def parse_json_body(request):
+    try:
+        body = request.body.decode('utf-8')
+        return json.loads(body) if body else {}
+    except Exception:
+        return None
+
+
+def user_to_dict(user):
+    return {
+        'id': user.id,
+        'email': user.email,
+        'fio': user.fio,
+        'phone': user.phone,
+    }
+
+
+@require_http_methods(["GET"])
+def users_list(request):
+    users = User.objects.all().order_by('id')
+    return json_success([user_to_dict(user) for user in users])
+
+
+@require_http_methods(["GET"])
+def user_detail(request, user_id):
+    try:
+        user = User.objects.get(id=user_id)
+    except User.DoesNotExist:
+        return json_error('Пользователь не найден', status=404)
+
+    return json_success(user_to_dict(user))
+
+
+@csrf_exempt
+@require_http_methods(["POST"])
+def create_user(request):
+    data = parse_json_body(request)
+    if data is None:
+        return json_error('Некорректный JSON')
+
+    email = (data.get('email') or '').strip()
+    fio = (data.get('fio') or '').strip()
+    phone = (data.get('phone') or '').strip()
+    password = data.get('password')
+
+    if not email:
+        return json_error('Поле email обязательно')
+
+    if not password:
+        return json_error('Поле password обязательно')
+
+    if User.objects.filter(email=email).exists():
+        return json_error('Пользователь с таким email уже существует')
+
+    user = User(
+        email=email,
+        fio=fio if fio else None,
+        phone=phone if phone else None,
+    )
+    user.set_password(password)
+    user.save()
+
+    return json_success(user_to_dict(user), status=201)
+
+
+@csrf_exempt
+@require_http_methods(["POST", "PUT", "PATCH"])
+def update_user(request, user_id):
+    try:
+        user = User.objects.get(id=user_id)
+    except User.DoesNotExist:
+        return json_error('Пользователь не найден', status=404)
+
+    data = parse_json_body(request)
+    if data is None:
+        return json_error('Некорректный JSON')
+
+    if 'email' in data:
+        email = (data.get('email') or '').strip()
+
+        if not email:
+            return json_error('Поле email не может быть пустым')
+
+        if User.objects.filter(email=email).exclude(id=user.id).exists():
+            return json_error('Пользователь с таким email уже существует')
+
+        user.email = email
+
+    if 'fio' in data:
+        fio = (data.get('fio') or '').strip()
+        user.fio = fio if fio else None
+
+    if 'phone' in data:
+        phone = (data.get('phone') or '').strip()
+        user.phone = phone if phone else None
+
+    if 'password' in data:
+        password = data.get('password')
+        if not password:
+            return json_error('Поле password не может быть пустым')
+        user.set_password(password)
+
+    user.save()
+
+    return json_success(user_to_dict(user))
+
+
+@csrf_exempt
+@require_http_methods(["POST", "DELETE"])
+def delete_user(request, user_id):
+    try:
+        user = User.objects.get(id=user_id)
+    except User.DoesNotExist:
+        return json_error('Пользователь не найден', status=404)
+
+    user.delete()
+
+    return json_success({
+        'message': 'Пользователь удалён',
+        'id': user_id
+    })
