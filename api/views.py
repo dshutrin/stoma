@@ -2,6 +2,7 @@ import json
 import datetime
 
 from django.contrib.auth import authenticate, login as user_login, logout as user_logout
+from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods
@@ -171,6 +172,7 @@ def login_view(request):
 
 
 @csrf_exempt
+@login_required
 def logout_view(request):
     if request.method != 'POST':
         return method_not_allowed()
@@ -206,6 +208,7 @@ def get_document_detail(request, document_id):
 
 
 @csrf_exempt
+@login_required
 def create_document(request):
     if request.method != 'POST':
         return method_not_allowed()
@@ -233,6 +236,7 @@ def create_document(request):
 
 
 @csrf_exempt
+@login_required
 def update_document(request, document_id):
     if request.method != 'POST':
         return method_not_allowed()
@@ -269,6 +273,7 @@ def update_document(request, document_id):
 
 
 @csrf_exempt
+@login_required
 def delete_document(request, document_id):
     if request.method != 'POST':
         return method_not_allowed()
@@ -313,6 +318,7 @@ def get_speciality_detail(request, speciality_id):
 
 
 @csrf_exempt
+@login_required
 def create_speciality(request):
     if request.method != 'POST':
         return method_not_allowed()
@@ -332,6 +338,7 @@ def create_speciality(request):
 
 
 @csrf_exempt
+@login_required
 def update_speciality(request, speciality_id):
     if request.method != 'POST':
         return method_not_allowed()
@@ -356,6 +363,7 @@ def update_speciality(request, speciality_id):
 
 
 @csrf_exempt
+@login_required
 def delete_speciality(request, speciality_id):
     if request.method != 'POST':
         return method_not_allowed()
@@ -397,6 +405,7 @@ def get_type_of_service_detail(request, type_id):
 
 
 @csrf_exempt
+@login_required
 def create_type_of_service(request):
     if request.method != 'POST':
         return method_not_allowed()
@@ -416,6 +425,7 @@ def create_type_of_service(request):
 
 
 @csrf_exempt
+@login_required
 def update_type_of_service(request, type_id):
     if request.method != 'POST':
         return method_not_allowed()
@@ -440,6 +450,7 @@ def update_type_of_service(request, type_id):
 
 
 @csrf_exempt
+@login_required
 def delete_type_of_service(request, type_id):
     if request.method != 'POST':
         return method_not_allowed()
@@ -493,6 +504,7 @@ def get_services_with_type_of_service(request, type_of_service_id):
 
 
 @csrf_exempt
+@login_required
 def create_service(request):
     if request.method != 'POST':
         return method_not_allowed()
@@ -533,6 +545,7 @@ def create_service(request):
 
 
 @csrf_exempt
+@login_required
 def update_service(request, service_id):
     if request.method != 'POST':
         return method_not_allowed()
@@ -587,6 +600,7 @@ def update_service(request, service_id):
 
 
 @csrf_exempt
+@login_required
 def delete_service(request, service_id):
     if request.method != 'POST':
         return method_not_allowed()
@@ -654,6 +668,7 @@ def get_doctors_with_specific(request, spec_id):
 
 
 @csrf_exempt
+@login_required
 def create_doctor(request):
     if request.method != 'POST':
         return method_not_allowed()
@@ -691,6 +706,7 @@ def create_doctor(request):
 
 
 @csrf_exempt
+@login_required
 def update_doctor(request, doctor_id):
     if request.method != 'POST':
         return method_not_allowed()
@@ -745,6 +761,7 @@ def update_doctor(request, doctor_id):
 
 
 @csrf_exempt
+@login_required
 def delete_doctor(request, doctor_id):
     if request.method != 'POST':
         return method_not_allowed()
@@ -789,6 +806,7 @@ def get_doctor_education_row_detail(request, row_id):
 
 
 @csrf_exempt
+@login_required
 def create_doctor_education_row(request, doctor_id):
     if request.method != 'POST':
         return method_not_allowed()
@@ -816,6 +834,7 @@ def create_doctor_education_row(request, doctor_id):
 
 
 @csrf_exempt
+@login_required
 def update_doctor_education_row(request, row_id):
     if request.method != 'POST':
         return method_not_allowed()
@@ -847,6 +866,7 @@ def update_doctor_education_row(request, row_id):
 
 
 @csrf_exempt
+@login_required
 def delete_doctor_education_row(request, row_id):
     if request.method != 'POST':
         return method_not_allowed()
@@ -888,6 +908,7 @@ def get_doctor_experience_row_detail(request, row_id):
 
 
 @csrf_exempt
+@login_required
 def create_doctor_experience_row(request, doctor_id):
     if request.method != 'POST':
         return method_not_allowed()
@@ -915,6 +936,7 @@ def create_doctor_experience_row(request, doctor_id):
 
 
 @csrf_exempt
+@login_required
 def update_doctor_experience_row(request, row_id):
     if request.method != 'POST':
         return method_not_allowed()
@@ -946,6 +968,7 @@ def update_doctor_experience_row(request, row_id):
 
 
 @csrf_exempt
+@login_required
 def delete_doctor_experience_row(request, row_id):
     if request.method != 'POST':
         return method_not_allowed()
@@ -987,6 +1010,7 @@ def get_doctor_certificate_detail(request, certificate_id):
 
 
 @csrf_exempt
+@login_required
 def create_doctor_certificate(request, doctor_id):
     if request.method != 'POST':
         return method_not_allowed()
@@ -1012,6 +1036,7 @@ def create_doctor_certificate(request, doctor_id):
 
 
 @csrf_exempt
+@login_required
 def update_doctor_certificate(request, certificate_id):
     if request.method != 'POST':
         return method_not_allowed()
@@ -1050,6 +1075,7 @@ def update_doctor_certificate(request, certificate_id):
 
 
 @csrf_exempt
+@login_required
 def delete_doctor_certificate(request, certificate_id):
     if request.method != 'POST':
         return method_not_allowed()
@@ -1094,6 +1120,7 @@ def get_doctor_key_detail(request, key_id):
 
 
 @csrf_exempt
+@login_required
 def create_doctor_key(request, doctor_id):
     if request.method != 'POST':
         return method_not_allowed()
@@ -1126,6 +1153,7 @@ def create_doctor_key(request, doctor_id):
 
 
 @csrf_exempt
+@login_required
 def update_doctor_key(request, key_id):
     if request.method != 'POST':
         return method_not_allowed()
@@ -1168,6 +1196,7 @@ def update_doctor_key(request, key_id):
 
 
 @csrf_exempt
+@login_required
 def delete_doctor_key(request, key_id):
     if request.method != 'POST':
         return method_not_allowed()
@@ -1189,6 +1218,7 @@ def delete_doctor_key(request, key_id):
 # Order
 # =========================
 @csrf_exempt
+@login_required
 def get_all_orders(request):
     if request.method != 'GET':
         return method_not_allowed()
@@ -1199,6 +1229,7 @@ def get_all_orders(request):
     return JsonResponse({'orders': orders_list}, status=200)
 
 @csrf_exempt
+@login_required
 def get_order_detail(request, order_id):
     if request.method != 'GET':
         return method_not_allowed()
@@ -1212,6 +1243,7 @@ def get_order_detail(request, order_id):
 
 
 @csrf_exempt
+@login_required
 def create_order(request):
     if request.method != 'POST':
         return method_not_allowed()
@@ -1246,6 +1278,7 @@ def create_order(request):
 
 
 @csrf_exempt
+@login_required
 def update_order(request, order_id):
     if request.method != 'POST':
         return method_not_allowed()
@@ -1290,6 +1323,7 @@ def update_order(request, order_id):
 
 
 @csrf_exempt
+@login_required
 def delete_order(request, order_id):
     if request.method != 'POST':
         return method_not_allowed()
@@ -1335,12 +1369,16 @@ def user_to_dict(user):
     }
 
 
+@csrf_exempt
+@login_required
 @require_http_methods(["GET"])
 def users_list(request):
     users = User.objects.all().order_by('id')
     return json_success([user_to_dict(user) for user in users])
 
 
+@csrf_exempt
+@login_required
 @require_http_methods(["GET"])
 def user_detail(request, user_id):
     try:
@@ -1352,6 +1390,7 @@ def user_detail(request, user_id):
 
 
 @csrf_exempt
+@login_required
 @require_http_methods(["POST"])
 def create_user(request):
     data = parse_json_body(request)
@@ -1384,6 +1423,7 @@ def create_user(request):
 
 
 @csrf_exempt
+@login_required
 @require_http_methods(["POST", "PUT", "PATCH"])
 def update_user(request, user_id):
     try:
@@ -1426,6 +1466,7 @@ def update_user(request, user_id):
 
 
 @csrf_exempt
+@login_required
 @require_http_methods(["POST", "DELETE"])
 def delete_user(request, user_id):
     try:
